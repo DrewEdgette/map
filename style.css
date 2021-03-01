@@ -8,25 +8,67 @@ body {
 	margin: auto;
 	width: 800px;
 	height: 98vh;
-	background-color: #98ffcc;
+	background-color: #151926;
 	font-size: 1em;
 	}
+
+.outside-container {
+	background: white;
+}
 
 
 .grid-title {
 	text-align: center;
 	font-size: 2em;
-	padding: 15px;
-	background: #221d33;
+	padding: 30px 0;
   color: white;
-
+	margin: auto;
+	font-weight: bold;
 }
 
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+	margin: auto;
+	margin-top: 40px;
+	background: #151926;
 }
+
+
+
+.grid-container div:nth-child(n+2):nth-child(-n+9) {
+    background: #def0d8;
+}
+
+
+.grid-container div:nth-child(10) {
+    background: #fcf8e3;
+}
+
+.grid-container div:nth-child(n+11):nth-child(-n+14) {
+    background: white;
+}
+
+.grid-container div:nth-child(n+15):nth-child(-n+16) {
+    background: #d8ecf7;
+}
+
+.grid-container div:nth-child(n+17):nth-child(-n+18) {
+    background: #e6a4a4;
+}
+
+.grid-container div:nth-child(n+19):nth-child(-n+20) {
+    background: #efcaec;
+}
+
+.grid-container div:nth-child(n+21) {
+    background: #efbb83;
+}
+
+.grid-container div:last-child {
+    margin-bottom: 20px;
+}
+
 
 
 .grid-item {
@@ -35,11 +77,15 @@ body {
   padding: 6px;
   font-size: 25px;
   text-align: center;
+	margin: 0 20px;
 }
+
+
+
 
 .grid-item > a:link {
   text-decoration: none;
-  color: white;
+  color: #5a5a5a;
 }
 
 .grid-item > a:hover {
@@ -51,11 +97,11 @@ body {
 }
 
 
+
 	@media only screen and (max-width: 600px) {
   #mapid {
 		margin: auto;
 		width: 96vw;
 		height: 66vh;
-		background-color: #98ffcc;
   }
 }

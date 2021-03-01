@@ -1,27 +1,44 @@
-var placeList = [[0,"basingse", 19780, 5730],
-                   [1,"omashu", 15550,	9830],
-                   [2,"fongs",	14450,	10980],
-                   [3,"mistypalms", 17700,	11400],
-                   [4,"gaoling", 16710,	12600],
-                   [5,"kyoshi", 14300,	13500],
-                   [6,"gaipan", 15544,	8705],
-                   [7,"repcity", 11810, 5850],
-                   [8,"northernair", 15860,	3670],
-                   [9,"easternair",23500,	11960],
-                   [10,"southernair",	10820,	15010],
-                   [11,"westernair",7220,	5300],
-                   [12,"northernwater",13300,	2030],
-                   [13,"southernwater",10600,	17900],
-                   [14,"boilingrock",5686,	7803],
-                   [15,"firecap",3950,	9760],
-                   [16,"spiritportal",13120,	1030],
-                   [17,"southernportal",13650,	18630],
-									 [18,"maoyi",21226, 6207],
-									 [19,"delcambre",19305, 14545],
-									 [20,"legocity",13994, 6018],
-									 [21,"chetilvania",16308, 15360],
-                   [22,"urithiru",14681, 12888],
-                   [23,"Axiom",19000, 7500]];
+var placeList =    [["Ba Sing Se", 19780, 5730],
+                   ["Omashu", 15550,	9830],
+                   ["Fong's Fortress",	14450,	10980],
+                   ["Misty Palms Oasis", 17700,	11400],
+                   ["Gaoling", 16710,	12600],
+                   ["Kyoshi Island", 14300,	13500],
+                   ["Gaipan", 15544,	8705],
+									 ["Banyan-Grove Tree", 15825,	11600],
+                   ["Republic City", 11810, 5850],
+                   ["Northern Air Temple", 15860,	3670],
+                   ["Eastern Air Temple",23500,	11960],
+                   ["Southern Air Temple",	10820,	15010],
+                   ["Western Air Temple",7220,	5300],
+                   ["Northern Water Tribe",13300,	2030],
+                   ["Southern Water Tribe",10600,	17900],
+                   ["The Boiling Rock",5690,	7800],
+                   ["Fire Nation Capital",3950,	9760],
+                   ["Northern Spirit Portal",13120,	1030],
+                   ["Southern Spirit Portal",13650,	18630],
+								   ["Maoyi",21220, 6200],
+									 ["Delcambre",19300, 14540],
+									 ["Lego City",14000, 6000],
+                   ["Skeleton Sculpture (Lego City)",21140, 11020],
+									 ["Chestilvania",16300, 15360],
+                   ["Urithiru",14680, 12890],
+                   ["Axiom",19000, 7500],
+                   ["AgniKai",5750, 9220],
+                   ["BackpackerCity",6110, 9695],
+                   ["BlackCliffs",6270, 10020],
+                   ["Lilactown2.0",16820, 3939],
+                   ["Pride Town",21360, 5280],
+                   ["Ishtar",19850, 9670],
+                   ["Pantora",13230, 14540],
+                   ["Star Wars House (Pantora)",18120, 10820],
+									 ["Newt City",4470, 10970],
+                   ["Kamino",14720, 15700],
+                   ["Anima",14460, 15350],
+                   ["VaatusTeaShop",15030, 17200],
+                   ["SouthernRaiders",12980, 13450],
+                   ["Kraotum",7740, 4880],
+                   ["Igloanie",13540, 1020]];
 
 // map height is always the device height
 // the width then gets adjusted to match the original image dimensions
@@ -164,7 +181,7 @@ this.map.addEventListener('mousemove', (event) => {
 }
 );
 
-function zoomOnPosition(lng,lat) {
+function zoomOnPosition(lng,lat, townName) {
 
 	markerGroup.clearLayers();
 
@@ -175,15 +192,38 @@ function zoomOnPosition(lng,lat) {
 
 	map.setZoom(3);
 	setTimeout(() => map.panTo([mapY,mapX]), 400);
-	L.marker([mapY, mapX], {icon: markerIcon}).addTo(markerGroup);
+	var marker = L.marker([mapY, mapX], {icon: markerIcon}).addTo(markerGroup);
+  
+  marker.bindTooltip(townName, 
+    {
+        permanent: true, 
+        direction: 'bottom'
+    }
+);
+}
+
+function createGrid() {
+	var grid = document.getElementById("places");
+	for (var i=0; i<placeList.length; i++) {
+		grid.innerHTML += "<div class='grid-item'> <a href='javascript:goTo(" + i + ");'>" + placeList[i][0] + "</a> </div>";
+	}
 }
 
 
 function goTo(location) {
 	window.scrollTo(0, 0);
-	var lng = placeList[location][2];
-	var lat = placeList[location][3];
+  var townName = placeList[location][0];
+	var lng = placeList[location][1];
+	var lat = placeList[location][2];
 	var coords = [lng,lat];
 	this.position.updateHTML(coords);
-	zoomOnPosition(lng,lat);
+	zoomOnPosition(lng,lat, townName);
 }
+
+
+createGrid();
+
+var gridTitle = document.getElementById("grid-title");
+var placeGrid = document.getElementById("places");
+gridTitle.style.width = width + "px";
+placeGrid.style.width = width + "px";
